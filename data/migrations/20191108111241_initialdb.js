@@ -23,6 +23,7 @@ exports.up = function(knex) {
                 .inTable('projects')
                 .onDelete('RESTRICT')
                 .onUpdate('CASCADE');
+            tbl.boolean('completed').notNullable().defaultTo(false);
         })
         .createTable('project_resources', tbl => {
             tbl.increments();
@@ -42,9 +43,7 @@ exports.up = function(knex) {
                 .inTable('resources')
                 .onDelete('RESTRICT')
                 .onUpdate('CASCADE');
-        })
-        
-  
+        });      
 };
 
 exports.down = function(knex) {
