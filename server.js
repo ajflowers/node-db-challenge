@@ -100,15 +100,46 @@ server.post('/project_resources', (req, res) => {
 
 server.get('/projects/:id', (req, res) => {
     const id = req.params.id;
-    const returnedProject = {};
-    const projectTasks = [];
-    const projectResources= [];
 
     db('projects')
         .where({ id })
         .first()
         .then(project => {
-            res.status(200).json({ ...project, completed: Boolean(project.completed) });
+            db('tasks')
+                .where({ project_id: id})
+                .then(tasks => {
+                // select r.*
+                // from project_resources as pr
+                // join resources as r on r.id = pr.resource_id
+                // where pr.project_id = 1;
+
+                    db.select('r.*')
+                        .from('project_resources as pr')
+                        .join('resources as r', 'r.id', '=', 'pr.resource_id')
+                        .where('pr.project_id', '=', id)
+                        .then(resources => {
+                            console.log(resources);
+                            res.status(200).json({
+                                ...project,
+                                completed: Boolean(project.completed),
+                                tasks: tasks.map(task => ({
+                                    id: task.id, 
+                                    description: task.description,
+                                    notes: task.notes,
+                                    completed: Boolean(task.completed)                        
+                                    })),
+                                resources: resources
+                            })
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            res.status(500).json(err);  
+                        });
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(500).json(err);  
+                });
         })
         .catch(err => {
             console.log(err);
