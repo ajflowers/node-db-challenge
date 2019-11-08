@@ -54,6 +54,35 @@ db('projects')
     });
 });
 
+server.post('/tasks', (req, res) => {
+    db('tasks').insert(req.body)
+    .then(id => {
+        res.status(201).json(id);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
+
+server.get('/tasks', (req, res) => {
+    /*
+    select t.*, p.name as project_name, p.description as project_description
+    from tasks as t
+    join projects as p on t.project_id = p.id;
+    */
+
+    db.select('t.*', 'p.name as project_name',' p.description as project_description')
+        .from('tasks as t')
+        .join('projects as p', 't.project_id', '=', 'p.id')
+        .then(tasks => {
+            res.status(200).json(tasks);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
 
 
 
