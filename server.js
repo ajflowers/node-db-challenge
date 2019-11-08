@@ -76,11 +76,43 @@ server.get('/tasks', (req, res) => {
         .from('tasks as t')
         .join('projects as p', 't.project_id', '=', 'p.id')
         .then(tasks => {
+            var formatted = tasks.map(task => ({...task, completed: Boolean(task.completed)}));
             res.status(200).json(tasks);
         })
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
+        });
+});
+
+// quick and dirty endpoint for populating project_resources
+server.post('/project_resources', (req, res) => {
+    db('project_resources')
+        .insert(req.body)
+        .then(id => {
+            res.status(201).json(id);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
+
+server.get('/projects/:id', (req, res) => {
+    const id = req.params.id;
+    const returnedProject = {};
+    const projectTasks = [];
+    const projectResources= [];
+
+    db('projects')
+        .where({ id })
+        .first()
+        .then(project => {
+            res.status(200).json({ ...project, completed: Boolean(project.completed) });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);  
         });
 });
 
