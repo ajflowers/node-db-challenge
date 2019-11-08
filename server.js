@@ -33,6 +33,26 @@ server.get('/resources', (req, res) => {
         });
 });
 
+server.post('/projects', (req, res) => {
+    db('projects').insert(req.body)
+    .then(id => {
+        res.status(201).json(id);
+    })
+    .catch(err => {
+        res.status(500).json(err);
+    });
+});
+
+server.get('/projects', (req, res) => {
+db('projects')
+    .then(projects => {
+        var formatted = projects.map(project => ({...project, completed: Boolean(project.completed)}));
+        res.status(200).json(formatted);
+    })
+    .catch(err => {
+        res.status(500).json(err);
+    });
+});
 
 
 
