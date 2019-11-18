@@ -118,7 +118,7 @@ server.get('/projects/:id', (req, res) => {
                         .join('resources as r', 'r.id', '=', 'pr.resource_id')
                         .where('pr.project_id', '=', id)
                         .then(resources => {
-                            console.log(resources);
+                            // console.log(resources);
                             res.status(200).json({
                                 ...project,
                                 completed: Boolean(project.completed),
