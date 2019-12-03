@@ -39,12 +39,16 @@ Commit your code regularly and use descriptive messages. This helps both you (in
 Demonstrate your understanding of this week's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
 - [ ] Explain the difference between `Relational Databases` and `SQL`.
+_A relational database is a system that stores data in tables made of rows and columns; SQL is Structured Query Language, a shared syntax for working with several different types of relational database systems_
 
 - [ ] Why do tables need a `primary key`?
+_The primary key ensures that each row of the table contains a unique identifier._
 
 - [ ] What is the name given to a table column that references the primary key on another table.
+_Foreign key_
 
 - [ ] What do we need in order to have a _many to many_ relationship between two tables.
+_A third table that has a one-to-many relationship to each of the first two tables_
 
 ## Minimum Viable Product
 
@@ -54,13 +58,13 @@ Complete the following tasks:
 
 - [ ] Design the data model and use _knex migrations_ to create the database and tables.
 - [ ] Build an API with endpoints for:
-  - [ ] adding resources.
-  - [ ] retrieving a list of resources.
-  - [ ] adding projects.
-  - [ ] retrieving a list of projects.
-  - [ ] adding tasks.
-  - [ ] retrieving a list of tasks. **The list of tasks should include the project name and project description**.
-- [ ] When returning `project` or `task` information, the `completed` property should be `true` or `false`.
+  - [x] adding resources.
+  - [x] retrieving a list of resources.
+  - [x] adding projects.
+  - [x] retrieving a list of projects.
+  - [X] adding tasks.
+  - [x] retrieving a list of tasks. **The list of tasks should include the project name and project description**.
+- [x] When returning `project` or `task` information, the `completed` property should be `true` or `false`.
 
 For example, instead of returning a `task` that looks like this:
 
@@ -97,6 +101,7 @@ The API should return:
 ### Entities
 
 A `project` is what needs to be done. We want to store the following data about a `project`:
+- `findSteps(id)`:
 
 - [ ] a unique Id.
 - [ ] a name. This column is required.
@@ -119,10 +124,15 @@ An `task` one of the steps needed to complete the project. We want to store the 
 - [ ] a boolean that indicates if the task has been completed. This column cannot be NULL, the default value should be `false`.
 
 ## Stretch Problem
+- `findSteps(id)`:
 
-This section is **optional** and not counted towards MVP. Start working on it after you're done with the main assignment.
+This section is **
+- `findSteps(id)`:tart working on it after you're done with t
+- `findSteps(id)`:
 
-Add an endpoint for retrieving a `project` by its `id` that returns an object with the following structure:
+Add an endpoint fo
+- `findSteps(id)`: returns an object with the following stru
+- `findSteps(id)`:
 
 ```js
 {
